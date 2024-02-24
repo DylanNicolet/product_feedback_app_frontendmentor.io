@@ -1,0 +1,90 @@
+@use "../utils" as u;
+
+.category-nav{
+    background-color: u.$color-tertiary;
+    width: 90%;
+    margin: auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    @include u.desktop-only{
+        width: 80%;
+    }
+
+    //When category-nav is in the mobile/tablet menu
+    &.header-nav{
+        max-height: calc(90vh - 90px);
+        overflow-y: scroll;
+        width: 100%;
+        padding: 0 5%;
+
+        @include u.tablet-only{
+            padding: 0 5% 30px 5%;
+        }
+    }
+
+    ul{
+        list-style-type: none;
+        width: 100%;
+        padding: 0;
+
+        @include u.tablet-only{
+            display: grid;
+            grid-template: repeat(1, 1fr)/repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .nav_item{
+            text-decoration: none;
+            
+
+            .link-section{
+                background-color: u.$color-background-primary;
+                margin-top: 90px;
+                position: relative;
+                height: 180px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                padding-bottom: 20px;
+                border-radius: 10px;
+
+                .category-img{
+                    width: 180px;
+                    position: absolute;
+                    top: -65px;
+                    left: calc(50% - 90px);
+                }
+
+                h1{
+                    font-size: 1rem;
+                    margin-bottom: 15px;
+                    color: u.$color-secondary;
+                    cursor: pointer;
+                }
+
+                .shop-section{
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    color: u.$color-text-primary;
+                    cursor: pointer;
+
+                    p{
+                        cursor: pointer;
+                    }
+                    
+                    &:hover{
+                        color: u.$color-primary;
+                    }
+
+                    img{
+                        margin-left: 20px;
+                        height: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

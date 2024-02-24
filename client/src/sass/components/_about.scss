@@ -1,0 +1,66 @@
+@use "../utils" as u;
+
+.about{
+    width: 90%;
+    margin: 100px auto;
+
+    @include u.desktop-only{
+        margin: 150px auto;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .about__image{
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+
+        @include u.tablet-only{
+            margin-bottom: 50px;
+        }
+
+        @include u.desktop-only{
+            order: 2;
+            width: 49%;
+            height: 600px;
+            margin-bottom: 0;
+        }
+    }
+
+    .content{
+        text-align: center;
+
+        @include u.tablet-only{
+            padding: 0px 9%;
+        }
+
+        @include u.desktop-only{
+            width: 37%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            padding: 0;
+        }
+
+        .content__title{
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+
+            @include u.tablet-only{
+                font-size: 2.4rem;
+            }
+
+            span{
+                color: u.$color-primary;
+            }
+        }
+
+        .content__description{
+            color: u.$color-text-primary;
+            line-height: 1.5rem;
+        }
+    }
+}

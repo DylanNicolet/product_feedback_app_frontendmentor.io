@@ -1,0 +1,170 @@
+@use "../utils" as u;
+
+.modal-cart{
+    background-color: u.$color-background-secondary;
+    position: fixed;
+    width: 90%;
+    top: 110px;
+    left: 5%;
+    max-height: 75vh;
+    overflow-y: scroll;
+    border-radius: 10px;
+    z-index: 2;
+    padding: 7%;
+    color: u.$color-secondary;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include u.tablet-only{
+        width: 50%;
+        left: auto;
+        right: 5%;
+        padding: 5%;
+        top: 120px;
+    }
+
+    @include u.desktop-only{
+        width: 450px;
+        padding: 40px;
+    }
+
+    @include u.ultra-wide-only{
+        right: calc(((100vw - 1990px) / 2) + 199px) ;
+    }
+
+    .header{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        .title{
+            font-size: 1.3rem;
+        }
+
+        .button-remove-all{
+            border: none;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: u.$color-text-primary;
+
+            @include u.desktop-only{
+                font-size: 1rem;
+                
+                &:hover{
+                    cursor: pointer;
+                    color: u.$color-primary;
+                }
+            }
+        }
+    }
+
+    .products-block{
+        margin-bottom: 40px;
+        max-height: 40vh;
+        overflow-y: scroll;
+
+        @include u.desktop-only{
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .product{
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .product__image{
+                width: 22%;
+                border-radius: 10px;
+                margin-right: 20px;
+
+                 @include u.tablet-only{
+                    width: 25%;
+                    height: auto;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                }
+            }
+
+            .title-and-price{
+                margin-right: 20px;
+                max-width: 30%;
+
+                .title{
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                }
+
+                .price{
+                    color: u.$color-text-primary;
+                    font-size: 1rem;
+                    font-weight: 600;
+                }
+            }
+
+            .counter{
+                display: flex;
+                background-color: u.$color-background-primary;
+                margin-left: auto;
+                height: 35px;
+                width: 100px;
+                justify-content: space-between;
+                align-items: center;
+
+                .counter__button{
+                    height: 100%;
+                    width: 35%;
+                    background-color: transparent;
+                    border: none;
+                    font-size: 1rem;
+                    color: u.$color-text-primary;
+
+                    @include u.desktop-only{
+                        cursor: pointer;
+
+                        &:hover{
+                            color: u.$color-primary;
+                        }
+                    }
+                }
+
+                .counter__number{
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .total-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        .total{
+            color: u.$color-text-primary;
+        }
+
+        .total-amount{
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+    }
+
+    #button-checkout{
+        width: 100%;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+}

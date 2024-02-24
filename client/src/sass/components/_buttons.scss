@@ -1,0 +1,51 @@
+@use "../utils" as u;
+
+button:focus, button:visited, button:active{
+  outline: none;
+}
+
+.button--light{
+    background-color: u.$color-primary;
+    color: u.$color-text-secondary;
+    width: 170px;
+    height: 55px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        background-color: u.$color-primary-light;
+    }
+}
+
+.button--dark{
+    background-color: u.$color-secondary;
+    color: u.$color-text-secondary;
+    width: 170px;
+    height: 55px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        background-color: u.$color-secondary-light;
+    }
+}
+
+.button--transparent{
+    background-color: transparent;
+    color: u.$color-secondary;
+    width: 170px;
+    height: 55px;
+    border: 2px solid u.$color-secondary;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        color: u.$color-tertiary;
+        background-color: u.$color-secondary;
+    }
+}

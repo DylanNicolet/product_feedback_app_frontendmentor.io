@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
+
+body, button, input, label{
+    font-family: 'Manrope', sans-serif;
+    font-weight: bold;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+    cursor: default;
+    margin: 0;
+}
+
+p{
+    font-weight: 500;
+    font-size: 15px;
+}
+
+h1{
+    font-size: 56px;
+    text-transform: uppercase;
+}
+
+h2{
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
+h3{
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+h4{
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+h5{
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+h6{
+    font-size: 18px;
+    text-transform: uppercase;
+}

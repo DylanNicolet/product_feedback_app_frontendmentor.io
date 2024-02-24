@@ -1,0 +1,19 @@
+@use "../utils/maps" as m;
+
+@mixin tablet-only{
+    @media only screen and (min-width:map-get(m.$breakpoint,tablette)){
+        @content;
+    }
+}
+
+@mixin desktop-only{
+    @media only screen and (min-width:map-get(m.$breakpoint,desktop)){
+        @content;
+    }
+}
+
+@mixin ultra-wide-only{
+    @media only screen and (min-width:map-get(m.$breakpoint,ultra-wide)){
+        @content;
+    }
+}
