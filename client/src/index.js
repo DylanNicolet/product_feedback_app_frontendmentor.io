@@ -5,9 +5,6 @@ import store from "./redux/store"
 import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Homepage from "./pages/Homepage"
-import Category from "./pages/Category"
-import ProductPage from "./pages/ProductPage"
-import Checkout from "./pages/Checkout"
 
 const router = createBrowserRouter([
   {
@@ -18,18 +15,18 @@ const router = createBrowserRouter([
         path: "/",
         element: <Homepage />,
       },
-      {
-        path: "/:category",
-        element: <Category />
-      },
-      {
-        path: "/:category/:productSlug",
-        element: <ProductPage />
-      },
-      {
-        path: "/checkout",
-        element: <Checkout />
-      }
+      // {
+      //   path: "/:category",
+      //   element: <Category />
+      // },
+      // {
+      //   path: "/:category/:productSlug",
+      //   element: <ProductPage />
+      // },
+      // {
+      //   path: "/checkout",
+      //   element: <Checkout />
+      // }
     ],
   }
 ])

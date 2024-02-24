@@ -14,7 +14,6 @@
 
 body{
     margin: 0;
-    padding-top: 90px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 
@@ -30,4 +29,23 @@ body{
 
 a:focus,a:visited,a:active{
     outline: none;
+}
+
+// Global component
+.container-primary {
+    border-radius: 10px;
+    background-color: u.$color-background-secondary;
+    padding: 1.5rem;
+}
+
+.planned {
+    background-color: u.$color-planned;
+}
+
+.in-progress {
+    background-color: u.$color-in-progress;
+}
+
+.live {
+    background-color: u.$color-live;
 }

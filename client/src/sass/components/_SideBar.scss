@@ -1,0 +1,135 @@
+@use "../utils" as u;
+
+#SideBar {
+    width: 100%;
+
+    &.sent-to-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .SideBar__title-container {
+        width: 100%;
+        min-height: 72px;
+        padding: 1rem 1.5rem;
+        color: u.$color-text-primary;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+
+        .SideBar__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 22px;
+        }
+
+        .SideBar__sub-title {
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        #menu-burger {
+            background-color: transparent;
+            border: none;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .menu-shade {
+        display: none;
+        width: 28%;
+        height: 100%;
+        background-color: u.$color-shade;
+
+        &.menu-opened {
+            display: block;
+        }
+    }
+
+    .SideBar__content-container {
+        display: none;
+        width: 72%;
+        height: calc(100% - 72px);
+        padding: 1.5rem;
+        background-color: u.$color-background-primary;
+
+        &.menu-opened {
+            display: block;
+        }
+
+        .SideBar__filter-container {
+            margin-bottom: 1.3rem;
+            padding-bottom: 0.5rem;
+
+            .Sidebar__filter {
+                background-color: u.$color-background-tertiary;
+                border-radius: 10px;
+                border: none;
+                font-size: 0.7rem;
+                font-weight: 600;
+                line-height: 19px;
+                letter-spacing: 0px;
+                color: u.$color-text-tertiary;
+                padding: 0.25rem 0.9rem;
+                margin-right: 0.6rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .SideBar__roadmap-container {
+            .Sidebar__roadmap-top {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1.4rem;
+
+                p {
+                    color: u.$color-text-secondary;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    line-height: 26px;
+                    letter-spacing: -0.25px;
+                }
+
+                a {
+                    color: u.$color-text-tertiary;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    line-height: 26px;
+                }
+            }
+
+            .SideBar__roadmap-row {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.5rem;
+                color: u.$color-text-quaternary;
+
+                .color_tag {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    margin-right: 1.3rem;
+                }
+
+                .text {
+                    flex-grow: 1;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    line-height: 23px;
+                    letter-spacing: 0px;
+                }
+            }
+        }
+    }
+}

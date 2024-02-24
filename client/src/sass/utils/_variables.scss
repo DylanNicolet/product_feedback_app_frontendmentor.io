@@ -1,16 +1,18 @@
-$color-primary: rgb(216,125,74);
-$color-secondary: rgb(0,0,0);
-$color-tertiary: rgb(255,255,255);
+$color-primary: rgb(173, 31, 234);
+$color-secondary: rgb(244, 159, 133);
+$color-tertiary: rgb(98, 188, 250);
 
-$color-primary-light: rgb(251,175,133);
-$color-secondary-light: rgb(75, 75, 75);
+$color-text-primary: #FFFFFF;
+$color-text-secondary: rgb(58, 67, 116);
+$color-text-tertiary: rgb(70, 97, 230);
+$color-text-quaternary: rgb(100, 113, 150);
 
-$color-text-primary: rgb(115, 115, 115);
-$color-text-secondary: white;
-$color-text-tertiary: rgb(222, 222, 222);
+$color-background-primary: rgb(247, 248, 253);
+$color-background-secondary: rgb(255, 255, 255);
+$color-background-tertiary: rgb(242, 244, 255);
 
-$color-background-primary: rgb(241,241,241); //Very light grey
-$color-background-secondary: white; //white
-$color-background-tertiary: rgb(250, 250, 250); //Very light pink
+$color-shade: rgba(65, 65, 65, 0.664);
 
-$color-invalid: rgb(205,44,44);
+$color-planned: rgb(244, 159, 133);
+$color-in-progress: rgb(173, 31, 234);
+$color-live: rgb(98, 188, 250);

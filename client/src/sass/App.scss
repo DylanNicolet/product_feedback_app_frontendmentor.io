@@ -2,18 +2,6 @@
 @use "./base/typography";
 @use "./base/keyframes";
 
-@use "./components/buttons";
-@use "./components/CategoryNav";
-@use "./components/Shade";
-@use "./components/About";
-@use "./components/DeployedNav";
-@use "./components/Cart";
-@use "./components/CheckoutLightbox";
-
-@use "./layouts/header";
-@use "./layouts/footer";
+@use "./components/SideBar";
 
 @use "./pages/Homepage";
-@use "./pages/Category";
-@use "./pages//ProductPage";
-@use "./pages/Checkout";
