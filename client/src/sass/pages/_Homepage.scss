@@ -1,4 +1,11 @@
 @use "../utils" as u;
 
-.homepage{
+.homepage {
+    @include u.tablet-only {
+        padding-top: 3rem;
+    }
+
+    @include u.desktop-only {
+        padding: 70px 5%;
+    }
 }

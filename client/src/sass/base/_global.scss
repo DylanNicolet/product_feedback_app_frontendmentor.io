@@ -13,17 +13,14 @@
 }
 
 body{
-    margin: 0;
+    margin: auto;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    background-color: u.$color-background-primary;
+    max-width: 1440px;
 
     &::-webkit-scrollbar {
         display: none;
-    }
-
-    @include u.ultra-wide-only{
-        max-width: 1990px;
-        margin: auto;
     }
 }
 
@@ -48,4 +45,10 @@ a:focus,a:visited,a:active{
 
 .live {
     background-color: u.$color-live;
+}
+
+button {
+    @include u.desktop-only {
+        cursor: pointer;
+    }
 }

@@ -3,6 +3,20 @@
 #SideBar {
     width: 100%;
 
+    @include u.tablet-only {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    @include u.desktop-only {
+        width: 20%;
+        margin: 0;
+        margin-right: 24px;
+        flex-direction: column;
+    }
+
     &.sent-to-top {
         position: fixed;
         top: 0;
@@ -26,6 +40,28 @@
         justify-content: space-between;
         flex-wrap: nowrap;
 
+        @include u.tablet-only {
+            min-height: unset;
+            width: 33%;
+            border-radius: 10px;
+            margin-right: 1.2rem;
+        }
+
+        @include u.desktop-only {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 24px;
+            height: 137px;
+        }
+
+        .SideBar__title-with-sub-title {
+            @include u.tablet-only {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+        }
+
         .SideBar__title {
             font-size: 0.9rem;
             font-weight: 700;
@@ -43,6 +79,10 @@
             padding: 0 10px;
             display: flex;
             align-items: center;
+
+            @include u.tablet-only {
+                display: none;
+            }
         }
     }
 
@@ -64,6 +104,18 @@
         padding: 1.5rem;
         background-color: u.$color-background-primary;
 
+        @include u.tablet-only {
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            background-color: unset;
+        }
+
+        @include u.desktop-only {
+            flex-direction: column;
+            width: 100%;
+        }
+
         &.menu-opened {
             display: block;
         }
@@ -71,6 +123,16 @@
         .SideBar__filter-container {
             margin-bottom: 1.3rem;
             padding-bottom: 0.5rem;
+
+            @include u.tablet-only {
+                margin-bottom: 0;
+                width: 48%;
+            }
+
+            @include u.desktop-only {
+                width: 100%;
+                margin-bottom: 24px;
+            }
 
             .Sidebar__filter {
                 background-color: u.$color-background-tertiary;
@@ -84,10 +146,23 @@
                 padding: 0.25rem 0.9rem;
                 margin-right: 0.6rem;
                 margin-bottom: 1rem;
+
+                &--active {
+                    color: u.$color-text-primary;
+                    background-color: u.$color-text-tertiary;
+                }
             }
         }
 
         .SideBar__roadmap-container {
+            @include u.tablet-only {
+                width: 48%;
+            }
+
+            @include u.desktop-only {
+                width: 100%;
+            }
+
             .Sidebar__roadmap-top {
                 display: flex;
                 justify-content: space-between;
