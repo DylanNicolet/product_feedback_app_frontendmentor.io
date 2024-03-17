@@ -8,4 +8,9 @@
     @include u.desktop-only {
         padding: 70px 5%;
     }
+
+    .feedback-container {
+        width: 100%;
+        padding: 1.6rem 6%;
+    }
 }

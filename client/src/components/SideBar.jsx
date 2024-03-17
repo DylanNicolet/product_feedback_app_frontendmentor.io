@@ -13,26 +13,26 @@ export default function SideBar() {
 
     // States
     let titleBG = undefined
-    const screenWidth = useSelector( state => state.appState.screenWidth )
-    const activeFilter = useSelector( state => state.appState.activeFilter )
+    const screenWidth = useSelector(state => state.appState.screenWidth)
+    const activeFilter = useSelector(state => state.appState.activeFilter)
     const [burger, setBurger] = React.useState(burgerIcon)
     const [menuOpen, setMenuOpen] = React.useState(false)
     let onMobile = undefined
     const filters = ['All', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature']
 
     // Handle which image to use according to screen size
-    if(screenWidth < 768){ 
+    if (screenWidth < 768) {
         titleBG = mobileTitleBG
         onMobile = true
-    } 
-    else if(screenWidth >= 768 && screenWidth < 1024){ 
+    }
+    else if (screenWidth >= 768 && screenWidth < 1024) {
         titleBG = tabletTitleBG
         onMobile = false
-    } 
-    else if(screenWidth >= 1024){ 
+    }
+    else if (screenWidth >= 1024) {
         titleBG = desktopTitleBG
         onMobile = false
-    } 
+    }
 
     // Menu toggle
     function handleMenuToggle() {
@@ -47,19 +47,20 @@ export default function SideBar() {
 
     // Filter change
     function handleFilterChange(e) {
-        dispatch( updateActiveFilter( { activeFilter: e.target.innerText, } ) )
+        dispatch(updateActiveFilter({ activeFilter: e.target.innerText, }))
+        handleMenuToggle()
     }
 
-    return(
+    return (
         <section id="SideBar" className={(menuOpen && onMobile) ? 'sent-to-top' : ''}>
             {/* title */}
-            <section className="SideBar__title-container" style={{backgroundImage: `url(${titleBG})`}}>
+            <section className="SideBar__title-container" style={{ backgroundImage: `url(${titleBG})` }}>
                 <section className="SideBar__title-with-sub-title">
                     <h1 className="SideBar__title">Frontend Mentor</h1>
                     <p className="SideBar__sub-title">Feedback Board</p>
                 </section>
 
-                <button id="menu-burger" onClick={handleMenuToggle}> 
+                <button id="menu-burger" onClick={handleMenuToggle}>
                     <img src={burger} alt="" />
                 </button>
             </section>
@@ -72,7 +73,7 @@ export default function SideBar() {
                 {/* Filters */}
                 <section className='container-primary SideBar__filter-container'>
                     {filters.map((filter, index) => (
-                        <button 
+                        <button
                             key={index}
                             className={filter.toLowerCase() === activeFilter.toLowerCase() ? 'Sidebar__filter Sidebar__filter--active' : 'Sidebar__filter'}
                             onClick={e => handleFilterChange(e)}

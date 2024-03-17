@@ -1,0 +1,35 @@
+@use "../utils" as u;
+
+.NoFeedback {
+    text-align: center;
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+
+    .NoFeeback__title {
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 26px;
+        letter-spacing: -0.25px;
+        color: u.$color-text-secondary;
+    }
+
+    .NoFeeback__text {
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 19px;
+        letter-spacing: 0px;
+        color: u.$color-text-quaternary;
+        margin-bottom: 1.5rem;
+    }
+
+    .NoFeeback__add-button {
+        margin: auto;
+
+        img {
+            margin-right:5px;
+            margin-top: 3px;
+        }
+    }
+} 

@@ -46,9 +46,3 @@ a:focus,a:visited,a:active{
 .live {
     background-color: u.$color-live;
 }
-
-button {
-    @include u.desktop-only {
-        cursor: pointer;
-    }
-}

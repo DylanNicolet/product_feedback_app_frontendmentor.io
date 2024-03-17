@@ -1,0 +1,97 @@
+@use "../utils" as u;
+
+.FeedbackCard {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .FeedbackCard__text-content {
+        width: 100%;
+        letter-spacing: 0;
+
+        .FeedbackCard__title {
+            color: u.$color-text-secondary;
+            font-weight: 700;
+            letter-spacing: -0.18px;
+            text-align: left;
+            margin-bottom: 11px;
+            font-size: 0.9rem;
+            line-height: 19px;
+        }
+    
+        .FeedbackCard__description {
+            color: u.$color-text-quaternary;
+            font-weight: 400;
+            text-align: left;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            line-height: 19px;
+        }
+    
+        .FeedbackCard__category-container {
+            background-color: u.$color-background-tertiary;
+            width: min-content;
+            padding: 0.4rem 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            
+            .FeedbackCard__category {
+                color: u.$color-text-tertiary;
+                text-align: left;
+                text-transform: capitalize;
+                font-weight: 600;
+                font-size: 0.9rem;
+                line-height: 19px;
+            }
+        }
+    }
+
+    .FeedbackCard__upvote-btn {
+        background-color: u.$color-background-tertiary;
+        border-radius: 10px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4.8rem;
+        height: 2.1rem;
+        margin-right: auto;
+
+        p {
+            color: u.$color-text-secondary;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 19px;
+            letter-spacing: -0.18px;
+            margin-left: 8px;
+        }
+
+        &--active {
+            background-color: u.$color-secondary;
+
+            p {
+                color: u.$color-text-primary;
+            }
+        }
+    }
+
+    .FeedbackCard__comment-count {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 18px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        p {
+            color: u.$color-text-secondary;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 19px;
+            letter-spacing: -0.18px;
+        }
+    }
+}
