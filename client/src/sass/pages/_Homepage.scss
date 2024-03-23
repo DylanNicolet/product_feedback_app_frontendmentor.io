@@ -9,6 +9,33 @@
         padding: 70px 5%;
     }
 
+    .sort-container {
+        width: 100%;
+        background-color: u.$color-background-quaternary;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 6%;
+
+        .dropdown-container {
+            display: flex;
+            align-items: center;
+            color: u.$color-text-primary;
+            p {
+                font-size: 0.8rem;
+            }
+
+            #sort-by-selector {
+                color: u.$color-text-primary;
+                background-color: u.$color-background-quaternary;
+                border: none;
+                font-size: 0.8rem;
+                font-weight: 700;
+                line-height: 19px;
+                letter-spacing: 0px;
+            }
+        }
+    }
+
     .feedback-container {
         width: 100%;
         padding: 1.6rem 6%;

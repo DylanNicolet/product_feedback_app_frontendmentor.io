@@ -1,6 +1,6 @@
 import React from "react";
 import noFeedbackImage from "../assets/suggestions/illustration-empty.svg"
-import addFeedbackIcon from "../assets/shared/icon-plus.svg"
+import ButtonAddFeedback from "../components/ButtonAddFeedback"
 
 export default function NoFeedback() {
     return (
@@ -10,10 +10,7 @@ export default function NoFeedback() {
             <p className="NoFeeback__text">
                 Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.
             </p>
-            <button className="NoFeeback__add-button button-primary">
-                <img src={addFeedbackIcon} alt="Plus sign" />
-                Add Feedback
-            </button>
+            <ButtonAddFeedback />
         </section>
     )
 }

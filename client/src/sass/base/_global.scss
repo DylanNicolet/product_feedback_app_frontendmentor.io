@@ -18,10 +18,15 @@ body{
     scrollbar-width: none;  /* Firefox */
     background-color: u.$color-background-primary;
     max-width: 1440px;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar {
         display: none;
     }
+}
+
+a {
+    text-decoration: none;
 }
 
 a:focus,a:visited,a:active{

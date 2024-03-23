@@ -52,7 +52,7 @@ export default function SideBar() {
     }
 
     return (
-        <section id="SideBar" className={(menuOpen && onMobile) ? 'sent-to-top' : ''}>
+        <section id="SideBar" className={(menuOpen && onMobile) ? 'sent-to-top' : ''}> {/* check if desktop stills needs the send-to-top otherwise delete */}
             {/* title */}
             <section className="SideBar__title-container" style={{ backgroundImage: `url(${titleBG})` }}>
                 <section className="SideBar__title-with-sub-title">
