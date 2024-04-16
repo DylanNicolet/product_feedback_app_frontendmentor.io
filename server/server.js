@@ -130,3 +130,16 @@ app.patch('/remove-from-user-upvotes/:feedbackId/:userId', (req, res) => {
         res.status(400).json({ error: 'Invalid user ID' });
     }
 });
+
+// Find one feedback by _id
+app.get('/get-single-feedback/:feedbackId', (req, res) => {
+    db.collection('feedbacks')
+        .findOne({_id: new ObjectId(req.params.feedbackId)})
+        .then(feedback => {
+            res.status(200).json(feedback)
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).json({ error: "could not fetch the document" })
+        })
+})

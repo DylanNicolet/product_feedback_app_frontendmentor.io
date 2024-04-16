@@ -1,0 +1,56 @@
+@use "../utils" as u;
+
+.FeedbackPage {
+    padding: 1.6rem 6%;
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        padding-bottom: 1.6rem;
+
+        .head__go-back {
+            font-size: 0.81rem;
+            font-weight: 700;
+            line-height: 1.19rem;
+            color: u.$color-text-quaternary;
+
+            img {
+                margin-right: 0.8rem;
+            }
+        }
+
+        .head__to-edit {
+            background-color: u.$color-secondary;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.81rem;
+            font-weight: 700;
+            line-height: 1.19rem;
+            color: u.$color-text-primary;
+        }
+    }
+
+    .comment-section {
+        margin-bottom: 1.2rem;
+
+        .comment-section__comment-count {
+            font-size: 1.13rem;
+            font-weight: 700;
+            line-height: 1.63rem;
+            letter-spacing: -0.02rem;
+            color: u.$color-text-secondary;
+        }
+
+        .comment-card {
+            .comment-card__top {
+                display: flex;
+                flex-wrap: nowrap;
+            }
+        }
+    }
+}

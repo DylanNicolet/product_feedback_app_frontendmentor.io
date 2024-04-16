@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       //   element: <Category />
       // },
       {
-        path: "/feedback/:id",
+        path: "/feedback/:feedbackId",
         element: <FeedbackPage />
       },
       // {
