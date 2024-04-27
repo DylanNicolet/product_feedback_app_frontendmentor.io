@@ -43,6 +43,19 @@ app.get('/get-filtered-feedbacks/:filter', (req, res) => {
         })
 })
 
+// Get all user upvotes
+app.get('/get-user-upvotes/:userId', (req, res) => {
+    db.collection('users')
+        .findOne({ _id: new ObjectId(req.params.userId) })
+        .then(user => {
+            res.status(200).json(user.feedbackUpvoted)
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).json({ error: "could not fetch the document" })
+        })
+})
+
 // Increment like
 app.patch('/increment-like/:feedbackId', (req, res) => {
     if (ObjectId.isValid(req.params.feedbackId)) {
@@ -61,28 +74,6 @@ app.patch('/increment-like/:feedbackId', (req, res) => {
             });
     } else {
         res.status(400).json({ error: 'Invalid feedback ID' });
-    }
-});
-
-// Add feedback ID to user's document
-app.patch('/add-to-user-upvotes/:feedbackId/:userId', (req, res) => {
-    if (ObjectId.isValid(req.params.userId)) {
-        db.collection('users')
-            .updateOne({ _id: new ObjectId(req.params.userId), feedbackUpvoted: { $ne: req.params.feedbackId } }, 
-                { $addToSet: { feedbackUpvoted: req.params.feedbackId } })
-            .then(result => {
-                if (result.modifiedCount === 1) {
-                    res.status(200).json({ message: 'Added feedback to upvoted array' });
-                } else if (result.matchedCount === 0) {
-                    res.status(404).json({ error: 'User not found or feedback already exists' });
-                }
-            })
-            .catch(err => {
-                console.error('Error updating user:', err);
-                res.status(500).json({ error: 'Could not update the user' });
-            });
-    } else {
-        res.status(400).json({ error: 'Invalid user ID' });
     }
 });
 
@@ -107,11 +98,33 @@ app.patch('/decrement-like/:feedbackId', (req, res) => {
     }
 });
 
+// Add feedback ID to user's document
+app.patch('/add-to-user-upvotes/:feedbackId/:userId', (req, res) => {
+    if (ObjectId.isValid(req.params.userId)) {
+        db.collection('users')
+            .updateOne({ _id: new ObjectId(req.params.userId), feedbackUpvoted: { $ne: req.params.feedbackId } },
+                { $addToSet: { feedbackUpvoted: req.params.feedbackId } })
+            .then(result => {
+                if (result.modifiedCount === 1) {
+                    res.status(200).json({ message: 'Added feedback to upvoted array' });
+                } else if (result.matchedCount === 0) {
+                    res.status(404).json({ error: 'User not found or feedback already exists' });
+                }
+            })
+            .catch(err => {
+                console.error('Error updating user:', err);
+                res.status(500).json({ error: 'Could not update the user' });
+            });
+    } else {
+        res.status(400).json({ error: 'Invalid user ID' });
+    }
+});
+
 // remove feedback ID from user's document
 app.patch('/remove-from-user-upvotes/:feedbackId/:userId', (req, res) => {
     if (ObjectId.isValid(req.params.userId)) {
         db.collection('users')
-            .updateOne({ _id: new ObjectId(req.params.userId) }, 
+            .updateOne({ _id: new ObjectId(req.params.userId) },
                 { $pull: { feedbackUpvoted: req.params.feedbackId } })
             .then(result => {
                 if (result.modifiedCount === 1) {
@@ -134,7 +147,7 @@ app.patch('/remove-from-user-upvotes/:feedbackId/:userId', (req, res) => {
 // Find one feedback by _id
 app.get('/get-single-feedback/:feedbackId', (req, res) => {
     db.collection('feedbacks')
-        .findOne({_id: new ObjectId(req.params.feedbackId)})
+        .findOne({ _id: new ObjectId(req.params.feedbackId) })
         .then(feedback => {
             res.status(200).json(feedback)
         })

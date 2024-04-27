@@ -4,7 +4,9 @@ export const appSlice = createSlice({
   name: 'appState',
   initialState: {
     screenWidth: window.innerWidth,
-    activeFilter: "All"
+    activeFilter: "All",
+    currentUser: "",
+    currentUserUpvotes: []
   },
   reducers: {
     updateState: (state, action) => {
@@ -13,10 +15,15 @@ export const appSlice = createSlice({
     updateActiveFilter: (state, action) => {
       state.activeFilter = action.payload.activeFilter
     },
+    updateCurrentUser: (state, action) => {
+      state.currentUser = action.payload.currentUser
+    },
+    updateCurrentUserUpvotes: (state, action) => {
+      state.currentUserUpvotes = action.payload.currentUserUpvotes
+    }
   }
 })
 
-// Action creators are generated for each case reducer function
-export const { updateState, updateActiveFilter } = appSlice.actions
+export const { updateState, updateActiveFilter, updateCurrentUser, updateCurrentUserUpvotes } = appSlice.actions
 
 export default appSlice.reducer

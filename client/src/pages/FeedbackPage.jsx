@@ -36,7 +36,7 @@ export default function() {
             </section>
 
             <FeedbackCard
-                id={feedbackData._id}
+                id={feedbackId}
                 title={feedbackData.title}
                 description={feedbackData.description}
                 category={feedbackData.category}
@@ -65,7 +65,7 @@ export default function() {
 
                         {/* Replies */}
                         {comment.replies && comment.replies.map((reply, index) => (
-                            <section className="comment-reply">
+                            <section className="comment-reply" key={index}>
                                 <section className="comment-card__top">
                                     <img className="comment-card__img" src="" alt="" />
 

@@ -4,11 +4,17 @@ import iconArrowUp from "../assets/shared/icon-arrow-up.svg";
 import iconArrowUpActive from "../assets/shared/icon-arrow-up-active.svg";
 import iconComments from "../assets/shared/icon-comments.svg";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function FeedbackCard(props) {
 // States
+const userUpvotes = useSelector(state => state.appState.currentUserUpvotes)
 const [isActive, setIsActive] = useState(false);
 const [upvoteCount, setUpvoteCount] = useState(props.upvotes);
+
+useEffect(() => {
+    setIsActive(userUpvotes.includes(props.id))
+}, [userUpvotes]);
 
 // Update upvoteCount when props.upvotes changes
 useEffect(() => {

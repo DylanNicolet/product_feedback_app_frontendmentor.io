@@ -2,34 +2,44 @@ import React from "react"
 import { useDispatch } from 'react-redux'
 import "./sass/App.css"
 import { Outlet, useLocation } from "react-router-dom"
-import { updateState } from "./redux/appSlice"
+import { updateCurrentUser, updateCurrentUserUpvotes, updateState } from "./redux/appSlice"
 import ScrollToTop from "./components/ScrollToTop"
+import axios from "axios";
 
 export default function App(){
-    //update Redux
+    // update Redux
     const dispatch = useDispatch()
+
     function updateScreenWidth(width){
-        dispatch(updateState(
-            {
-                screenWidth: width,
-            }
-        ))
+        dispatch(updateState({screenWidth: width,}))
     }
 
-    //Find screensize
     React.useEffect(() => {
         const handleWindowResize = () => {
-          updateScreenWidth(window.innerWidth)
-        }
+            updateScreenWidth(window.innerWidth);
+        };
     
-        window.addEventListener('resize', handleWindowResize)
+        window.addEventListener('resize', handleWindowResize);
+    
+        // Initialize current user
+        dispatch(updateCurrentUser({ currentUser: "65e0c2dae80fa646118fb53d" })); // To replace the userID with proper process if we add login page
+
+        // Initialize current user upvotes
+        axios
+            .get(`http://localhost:5000/get-user-upvotes/65e0c2dae80fa646118fb53d`) // To replace the userID with proper process if we add login page
+            .then((response) => {
+            if (response.status === 200) {
+                dispatch(updateCurrentUserUpvotes({ currentUserUpvotes: response.data}))
+            }
+            })
+            .catch((error) => {
+                console.error("Error fetching current user's upvote list:", error);
+            });
     
         return () => {
-          window.removeEventListener('resize', handleWindowResize)
-        }
-    }, [] )
-
-    const { pathname } = useLocation();
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, [] );
 
     return(
         <section className="app">
