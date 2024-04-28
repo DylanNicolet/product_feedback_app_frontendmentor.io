@@ -7,7 +7,6 @@ import ScrollToTop from "./components/ScrollToTop"
 import axios from "axios";
 
 export default function App(){
-    // update Redux
     const dispatch = useDispatch()
 
     function updateScreenWidth(width){
@@ -30,6 +29,7 @@ export default function App(){
             .then((response) => {
             if (response.status === 200) {
                 dispatch(updateCurrentUserUpvotes({ currentUserUpvotes: response.data}))
+                console.log("updating from app.jsx")
             }
             })
             .catch((error) => {
