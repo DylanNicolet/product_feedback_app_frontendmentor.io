@@ -21,15 +21,14 @@ export default function App(){
         window.addEventListener('resize', handleWindowResize);
     
         // Initialize current user
-        dispatch(updateCurrentUser({ currentUser: "65e0c2dae80fa646118fb53d" })); // To replace the userID with proper process if we add login page
+        dispatch(updateCurrentUser({ currentUser: "65e0c2dae80fa646118fb53d" })); // To do:replace the userID with proper process if we add login page
 
         // Initialize current user upvotes
         axios
-            .get(`http://localhost:5000/get-user-upvotes/65e0c2dae80fa646118fb53d`) // To replace the userID with proper process if we add login page
+            .get(`http://localhost:5000/get-user-upvotes/65e0c2dae80fa646118fb53d`) // To do: replace the userID with proper process if we add login page
             .then((response) => {
             if (response.status === 200) {
                 dispatch(updateCurrentUserUpvotes({ currentUserUpvotes: response.data}))
-                console.log("updating from app.jsx")
             }
             })
             .catch((error) => {

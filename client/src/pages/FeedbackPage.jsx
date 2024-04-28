@@ -51,38 +51,42 @@ export default function() {
                     <section className="comment-card" key={index}>
                         {/* Main Comment card */}
                         <section className="comment-card__top">
-                            <img className="comment-card__img" src="" alt="" />
+                            <img className="comment-card__image" src={comment.user.image} alt="User profile picture" />
 
                             <section className="comment-card__name-and-email">
                                 <p className="comment-card__name">{comment.user.name}</p>
                                 <p className="comment-card__email">@{comment.user.username}</p>
                             </section>
 
-                            <button>Reply</button>
+                            <button className="comment-card__reply-button">Reply</button>
                         </section>                                                                                                                                                          
 
-                        <p className="comment-card_content">{comment.content}</p>
+                        <p className="comment-card__content">{comment.content}</p>
 
-                        {/* Replies */}
-                        {comment.replies && comment.replies.map((reply, index) => (
-                            <section className="comment-reply" key={index}>
-                                <section className="comment-card__top">
-                                    <img className="comment-card__img" src="" alt="" />
+                        {/* Display replies if they exist */}
+                        {comment.replies && comment.replies.length > 0 && (
+                            <section className="comment-reply__container">
+                                {comment.replies && comment.replies.map((reply, index) => (
+                                    <section className="comment-reply" key={index}>
+                                        <section className="comment-card__top">
+                                            <img className="comment-card__image" src={reply.user.image} alt="" />
 
-                                    <section className="comment-card__name-and-email">
-                                        <p className="comment-card__name">{reply.user.name}</p>
-                                        <p className="comment-card__email">@{reply.user.username}</p>
+                                            <section className="comment-card__name-and-email">
+                                                <p className="comment-card__name">{reply.user.name}</p>
+                                                <p className="comment-card__email">@{reply.user.username}</p>
+                                            </section>
+
+                                            <button className="comment-card__reply-button">Reply</button>
+                                        </section>
+
+                                        <p className="comment-card__content">
+                                            <span className="reply-username">@{reply.replyingTo} </span>
+                                            {reply.content}
+                                        </p>
                                     </section>
-
-                                    <button>Reply</button>
-                                </section>
-
-                                <p className="comment-card__content">
-                                    <span className="reply-username">@{reply.replyingTo} </span>
-                                    {reply.content}
-                                </p>
+                                ))}
                             </section>
-                        ))}
+                        )}
                     </section>
                 ))}
             </section>

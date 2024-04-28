@@ -56,7 +56,7 @@ export default function FeedbackCard(props) {
                     console.error("Error updating user document:", error);
                 });
         } else {
-             // Decrease upvote count in DB feedbacks and update Redux
+            // Decrease upvote count in DB feedbacks and update Redux
             axios
                 .patch(`http://localhost:5000/decrement-like/${id}`)
                 .then((response) => {
