@@ -7,6 +7,7 @@ import iconArrowLeft from "../assets/shared/icon-arrow-left.svg"
 export default function() {
     // States
     const [feedbackData, setFeedbackData] = useState({})
+    const [replyFormId, setReplyFormId] = useState(null);
 
     // Grab ID from URL
     const { feedbackId } = useParams()
@@ -21,6 +22,15 @@ export default function() {
                 console.error('Error fetching data:', error);
             });
     }, [])
+
+    const toggleReplyForm = (commentId) => {
+        // Toggle visibility of the reply form corresponding to the clicked comment
+        if (replyFormId === commentId) {
+            setReplyFormId(null); // Close the form if it's already open
+        } else {
+            setReplyFormId(commentId); // Open the reply form for this comment
+        }
+    };
 
     return(
         <main className="FeedbackPage">
@@ -48,7 +58,7 @@ export default function() {
                 <p className="comment-section__comment-count">{feedbackData.comments ? feedbackData.comments.length : 0} Comments</p>
 
                 {feedbackData.comments && feedbackData.comments.map((comment, index) => (
-                    <section className="comment-card" key={index}>
+                    <section className="comment-card" id={"comment-card-" + comment.id} key={index}>
                         {/* Main Comment card */}
                         <section className="comment-card__top">
                             <img className="comment-card__image" src={comment.user.image} alt="User profile picture" />
@@ -58,10 +68,19 @@ export default function() {
                                 <p className="comment-card__email">@{comment.user.username}</p>
                             </section>
 
-                            <button className="comment-card__reply-button">Reply</button>
-                        </section>                                                                                                                                                          
-
+                            <button className="comment-card__reply-button" onClick={() => toggleReplyForm(comment.id)}>Reply</button>
+                        </section>
+                        
                         <p className="comment-card__content">{comment.content}</p>
+
+                        <section
+                            className="form-reply-to-comment"
+                            id={`form-reply-to-comment-${comment.id}`}
+                            style={{ display: replyFormId === comment.id ? 'block' : 'none' }}
+                        >
+                            <textarea placeholder="Type your reply here" maxLength="250" rows={4} />
+                            <button className="button-primary">Post Reply</button>
+                        </section>
 
                         {/* Display replies if they exist */}
                         {comment.replies && comment.replies.length > 0 && (
