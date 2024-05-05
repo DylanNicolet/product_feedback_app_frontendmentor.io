@@ -1,6 +1,8 @@
 @use "../utils" as u;
 
 button {
+    outline: none;
+
     @include u.desktop-only {
         cursor: pointer;
     }

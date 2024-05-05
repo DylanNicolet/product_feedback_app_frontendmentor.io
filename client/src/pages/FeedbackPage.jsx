@@ -9,22 +9,43 @@ export default function() {
     // States
     const currentUser = useSelector(state => state.appState.currentUser)
     const [feedbackData, setFeedbackData] = useState({})
+    const [commentCount, setCommentCount] = useState(0)
     const [replyFormId, setReplyFormId] = useState(null)
     const [comment, setComment] = useState('')
 
     // Grab ID from URL
     const { feedbackId } = useParams()
 
-    // Get data of current feedback
+    // Get initial feedback data
     useEffect(() => {
-        axios.get(`http://localhost:5000/get-single-feedback/${feedbackId}`)
-            .then(response => {
-                setFeedbackData(response.data)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+        getDataOfCurrentFeedback()
     }, [])
+
+    // Update the total comment+reply counter
+    useEffect(() => {
+        setCommentCount(feedbackData.comments
+        ? feedbackData.comments.reduce((total, comment) => {
+            // Count the comment itself
+            total += 1;
+            // Add the replies count
+            if (comment.replies && Array.isArray(comment.replies)) {
+                total += comment.replies.length;
+            }
+            return total;
+        }, 0)
+        : 0)
+    }, [feedbackData])
+    
+    // Function to get data of the current feedback
+    function getDataOfCurrentFeedback() {
+        axios.get(`http://localhost:5000/get-single-feedback/${feedbackId}`)
+        .then(response => {
+            setFeedbackData(response.data)
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+    }
 
     // Toggle visibility of the reply form corresponding to the clicked comment
     function toggleReplyForm(commentId) {
@@ -35,29 +56,33 @@ export default function() {
         }
     }
 
+    // Handle comment form input change
     function handleInputChange(e) {
         setComment(e.target.value);
     }
 
     // Add comment to the feedback
     function addCommentToFeedback() {
-        axios.post(`http://localhost:5000/add-comment-to-feedback/${feedbackId}`, {
-            // We send the data already as an object to be added to the comments array in database
-            commentData : {
-                content: comment,
-                user: {
-                    image: currentUser.currentUserImage,
-                    name: currentUser.currentUserName,
-                    username: currentUser.currentUserUsername 
+        if (comment) {
+            axios.post(`http://localhost:5000/add-comment-to-feedback/${feedbackId}`, {
+                // We send the data already as an object to be added to the comments array in database
+                commentData : {
+                    content: comment,
+                    user: {
+                        image: currentUser.currentUserImage,
+                        name: currentUser.currentUserName,
+                        username: currentUser.currentUserUsername 
+                    }
                 }
-            }
-        })
+            })
             .then(response => {
-                console.log(response);
+                getDataOfCurrentFeedback()
+                setComment('')
             })
             .catch(error => {
-                console.log(error);
+                console.log(error)
             });
+        }
     } 
 
     return(
@@ -79,11 +104,11 @@ export default function() {
                 description={feedbackData.description}
                 category={feedbackData.category}
                 upvotes={feedbackData.upvotes}
-                commentCount={feedbackData.comments ? feedbackData.comments.length : 0}
+                commentCount={commentCount}
             />
 
             <section className="comment-section container-primary">
-                <p className="comment-section__comment-count">{feedbackData.comments ? feedbackData.comments.length : 0} Comments</p>
+                <p className="comment-section__comment-count">{commentCount} Comments</p>
 
                 {feedbackData.comments && feedbackData.comments.map((comment, index) => (
                     <section className="comment-card" id={"comment-card-" + comment.id} key={index}>

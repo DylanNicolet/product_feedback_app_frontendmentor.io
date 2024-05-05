@@ -89,17 +89,32 @@ export default function Homepage() {
                 {backendData === null ? (
                     <p>Loading...</p>
                 ) : (
-                    backendData.map((feedback, index) => (
-                        <FeedbackCard
-                            key={index}
-                            id={feedback._id}
-                            title={feedback.title}
-                            description={feedback.description}
-                            category={feedback.category}
-                            upvotes={feedback.upvotes}
-                            commentCount={feedback.comments ? feedback.comments.length : 0}
-                        />
-                    ))
+                    backendData.map((feedback, index) => {
+                        // Check if feedback.comments is defined and is an array
+                        const commentCount = Array.isArray(feedback.comments)
+                            ? feedback.comments.reduce((total, comment) => {
+                                // Count the comment itself
+                                total += 1;
+                                // Add the replies count
+                                if (comment.replies && Array.isArray(comment.replies)) {
+                                    total += comment.replies.length;
+                                }
+                                return total;
+                            }, 0)
+                            : 0;
+                    
+                        return (
+                            <FeedbackCard
+                                key={index}
+                                id={feedback._id}
+                                title={feedback.title}
+                                description={feedback.description}
+                                category={feedback.category}
+                                upvotes={feedback.upvotes}
+                                commentCount={commentCount}
+                            />
+                        )
+                    })
                 )}
             </section>
         </main>

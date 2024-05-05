@@ -116,7 +116,8 @@
                 textarea {
                     width: 100%;
                     margin: 1rem auto;
-                    border: 1px solid u.$color-secondary;
+                    border: 1px solid transparent;
+                    outline: none;
                     color: u.$color-text-secondary;
                     background-color: u.$color-background-primary;
                     border-radius: 0.31rem;
@@ -125,6 +126,11 @@
                     line-height: 1.19rem;
                     letter-spacing: 0rem;
                     padding: 0.7rem 1rem;
+
+                    &:active,
+                    &:focus {
+                        border: 1px solid u.$color-secondary;
+                    }
 
                     &::placeholder {
                         color: u.$color-placeholder;
@@ -154,6 +160,40 @@
                 .comment-reply {
                     margin-top: 1.5rem;
                 }
+            }
+        }
+    }
+
+    .add-comment {
+        .add-comment__title {
+            font-size: 1.13rem;
+            font-weight: 700;
+            line-height: 1.63rem;
+            letter-spacing: -0.02rem;
+            color: u.$color-text-secondary;
+        }
+
+        textarea {
+            width: 100%;
+            margin: 1rem auto;
+            color: u.$color-text-secondary;
+            background-color: u.$color-background-primary;
+            border-radius: 0.31rem;
+            font-size: 0.81rem;
+            font-weight: 400;
+            line-height: 1.19rem;
+            letter-spacing: 0rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid transparent;
+            outline: none;
+
+            &:active,
+            &:focus {
+                border: 1px solid u.$color-secondary;
+            }
+
+            &::placeholder {
+                color: u.$color-placeholder;
             }
         }
     }
