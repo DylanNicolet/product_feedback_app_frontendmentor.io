@@ -6,7 +6,7 @@ const { connectToDb, getDb } = require('./database')
 
 // Creating an Express application
 const app = express()
-//app.use(express.json())
+app.use(express.json())
 app.use(cors());
 
 let db
@@ -124,8 +124,7 @@ app.patch('/add-to-user-upvotes/:feedbackId/:userId', (req, res) => {
 app.patch('/remove-from-user-upvotes/:feedbackId/:userId', (req, res) => {
     if (ObjectId.isValid(req.params.userId)) {
         db.collection('users')
-            .updateOne({ _id: new ObjectId(req.params.userId) },
-                { $pull: { feedbackUpvoted: req.params.feedbackId } })
+            .updateOne({ _id: new ObjectId(req.params.userId) }, { $pull: { feedbackUpvoted: req.params.feedbackId } })
             .then(result => {
                 if (result.modifiedCount === 1) {
                     res.status(200).json({ message: 'Removed feedback from upvoted array' });
@@ -153,6 +152,49 @@ app.get('/get-single-feedback/:feedbackId', (req, res) => {
         })
         .catch(err => {
             console.error(err)
-            res.status(500).json({ error: "could not fetch the document" })
+            res.status(500).json({ error: "Could not fetch the document" })
         })
+})
+
+// Add a new comment to a feedback
+app.post(`/add-comment-to-feedback/:feedbackId`, (req, res) => {
+    const feedbackId = req.params.feedbackId;
+    const commentData = req.body.commentData;
+
+    if (!commentData || !commentData.content) {
+        return res.status(400).json({ error: "Invalid comment data" });
+    }
+
+    // Generate a unique comment ID
+    const commentId = new ObjectId();
+
+    const newComment = {
+        id: commentId,
+        content: commentData.content,
+        user: {
+            image: commentData.user.image,
+            name: commentData.user.name,
+            username: commentData.user.username
+        }
+    };
+
+    console.log(newComment);
+
+    // Update the feedback document with the new comment
+    db.collection('feedbacks')
+        .updateOne(
+            { _id: new ObjectId(feedbackId) },
+            { $push: { comments: newComment } }
+        )
+        .then(result => {
+            if (result.modifiedCount > 0) {
+                res.status(200).json({ message: "Comment added successfully", commentId: commentId });
+            } else {
+                res.status(404).json({ error: "Feedback not found" });
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: "Could not add comment to this Feedback" });
+        });
 })

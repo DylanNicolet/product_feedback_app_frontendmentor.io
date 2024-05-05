@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { useSelector } from "react-redux";
 import FeedbackCard from "../components/FeedbackCard"
 import iconArrowLeft from "../assets/shared/icon-arrow-left.svg"
 
 export default function() {
     // States
+    const currentUser = useSelector(state => state.appState.currentUser)
     const [feedbackData, setFeedbackData] = useState({})
-    const [replyFormId, setReplyFormId] = useState(null);
+    const [replyFormId, setReplyFormId] = useState(null)
+    const [comment, setComment] = useState('')
 
     // Grab ID from URL
     const { feedbackId } = useParams()
@@ -23,14 +26,39 @@ export default function() {
             });
     }, [])
 
-    const toggleReplyForm = (commentId) => {
-        // Toggle visibility of the reply form corresponding to the clicked comment
+    // Toggle visibility of the reply form corresponding to the clicked comment
+    function toggleReplyForm(commentId) {
         if (replyFormId === commentId) {
             setReplyFormId(null); // Close the form if it's already open
         } else {
             setReplyFormId(commentId); // Open the reply form for this comment
         }
-    };
+    }
+
+    function handleInputChange(e) {
+        setComment(e.target.value);
+    }
+
+    // Add comment to the feedback
+    function addCommentToFeedback() {
+        axios.post(`http://localhost:5000/add-comment-to-feedback/${feedbackId}`, {
+            // We send the data already as an object to be added to the comments array in database
+            commentData : {
+                content: comment,
+                user: {
+                    image: currentUser.currentUserImage,
+                    name: currentUser.currentUserName,
+                    username: currentUser.currentUserUsername 
+                }
+            }
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    } 
 
     return(
         <main className="FeedbackPage">
@@ -70,7 +98,7 @@ export default function() {
 
                             <button className="comment-card__reply-button" onClick={() => toggleReplyForm(comment.id)}>Reply</button>
                         </section>
-                        
+
                         <p className="comment-card__content">{comment.content}</p>
 
                         <section
@@ -114,11 +142,17 @@ export default function() {
             <section className="add-comment container-primary">
                 <h3 className="add-comment__title">Add comment</h3>
                 
-                <input className="add-comment__textarea" type="textarea" placeholder="Type your comment here" />
+                <textarea 
+                    placeholder="Type your comment here" 
+                    maxLength="250" 
+                    rows={4} 
+                    value={comment}
+                    onChange={e => handleInputChange(e)}
+                />
 
                 <p className="add-comment__letters-countdown"></p>
 
-                <button className="button-primary">Post Comment</button>
+                <button className="button-primary" onClick={addCommentToFeedback}>Post Comment</button>
             </section>
         </main>
     )
