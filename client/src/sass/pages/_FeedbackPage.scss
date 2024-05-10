@@ -1,7 +1,7 @@
 @use "../utils" as u;
 
 .FeedbackPage {
-    padding: 1.6rem 6%;
+    padding: 1.6rem 6% 5rem 6%;
 
     .head {
         display: flex;
@@ -194,6 +194,20 @@
 
             &::placeholder {
                 color: u.$color-placeholder;
+            }
+        }
+
+        .add-comment__bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .add-comment__letters-countdown {
+                font-size: 0.81rem;
+                font-weight: 400;
+                line-height: 1.19rem;
+                letter-spacing: 0rem;
+                color: u.$color-text-quaternary;
             }
         }
     }

@@ -12,6 +12,7 @@ export default function() {
     const [commentCount, setCommentCount] = useState(0)
     const [replyFormId, setReplyFormId] = useState(null)
     const [comment, setComment] = useState('')
+    const [lengthRemaining, setLengthRemaining] = useState(250)
 
     // Grab ID from URL
     const { feedbackId } = useParams()
@@ -26,12 +27,12 @@ export default function() {
         setCommentCount(feedbackData.comments
         ? feedbackData.comments.reduce((total, comment) => {
             // Count the comment itself
-            total += 1;
+            total += 1
             // Add the replies count
             if (comment.replies && Array.isArray(comment.replies)) {
-                total += comment.replies.length;
+                total += comment.replies.length
             }
-            return total;
+            return total
         }, 0)
         : 0)
     }, [feedbackData])
@@ -43,22 +44,23 @@ export default function() {
             setFeedbackData(response.data)
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error)
         });
     }
 
     // Toggle visibility of the reply form corresponding to the clicked comment
     function toggleReplyForm(commentId) {
         if (replyFormId === commentId) {
-            setReplyFormId(null); // Close the form if it's already open
+            setReplyFormId(null) // Close the form if it's already open
         } else {
-            setReplyFormId(commentId); // Open the reply form for this comment
+            setReplyFormId(commentId) // Open the reply form for this comment
         }
     }
 
     // Handle comment form input change
     function handleInputChange(e) {
-        setComment(e.target.value);
+        setComment(e.target.value)
+        setLengthRemaining(250 - e.target.value.length)
     }
 
     // Add comment to the feedback
@@ -175,9 +177,10 @@ export default function() {
                     onChange={e => handleInputChange(e)}
                 />
 
-                <p className="add-comment__letters-countdown"></p>
-
-                <button className="button-primary" onClick={addCommentToFeedback}>Post Comment</button>
+                <section className="add-comment__bottom">
+                    <p className="add-comment__letters-countdown">{lengthRemaining} Characters left</p>
+                    <button className="button-primary" onClick={addCommentToFeedback}>Post Comment</button>
+                </section>
             </section>
         </main>
     )
