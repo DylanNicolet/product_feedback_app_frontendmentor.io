@@ -14,6 +14,8 @@ export default function() {
     const [comment, setComment] = useState('')
     const [lengthRemaining, setLengthRemaining] = useState(250)
     const [replyToComment, setReplyToComment] = useState('')
+    const [replyingTo, setReplyingTo] = useState('')
+    const [displayReplyingTo, setDisplayReplyingTo] = useState(false)
 
     // Grab ID from URL
     const { feedbackId } = useParams()
@@ -50,11 +52,15 @@ export default function() {
     }
 
     // Toggle visibility of the reply form corresponding to the clicked comment
-    function toggleReplyForm(commentId) {
-        if (replyFormId === commentId) {
-            setReplyFormId(null) // Close the form if it's already open
+    function toggleReplyForm(commentId, replyingToWho) {
+        if (replyFormId != commentId || replyingToWho != replyingTo) {
+            // Open reply form for this comment
+            setReplyFormId(commentId)
+            setReplyingTo(replyingToWho)
         } else {
-            setReplyFormId(commentId) // Open the reply form for this comment
+            // Close the form if it's already open
+            setReplyFormId(null)
+            setReplyingTo('')
         }
     }
 
@@ -150,7 +156,7 @@ export default function() {
                                 <p className="comment-card__email">@{comment.user.username}</p>
                             </section>
 
-                            <button className="comment-card__reply-button" onClick={() => toggleReplyForm(comment.id)}>Reply</button>
+                            <button className="comment-card__reply-button" onClick={() => {toggleReplyForm(comment.id, comment.user.username); setDisplayReplyingTo(false);}}>Reply</button>
                         </section>
 
                         <p className="comment-card__content">{comment.content}</p>
@@ -168,7 +174,10 @@ export default function() {
                                 value={replyToComment} 
                                 onChange={(e) => setReplyToComment(e.target.value)}
                             />
-                            <button className="button-primary" onClick={() => handleReplyToComment(comment.id, comment.user.username)}>Post Reply</button>
+
+                            {displayReplyingTo && <p className="replying-to">Replying to: <span>@{replyingTo}</span></p>}
+
+                            <button className="button-primary" onClick={() => handleReplyToComment(comment.id, replyingTo)}>Post Reply</button>
                         </section>
 
                         {/* Display replies if they exist */}
@@ -184,7 +193,7 @@ export default function() {
                                                 <p className="comment-card__email">@{reply.user.username}</p>
                                             </section>
 
-                                            <button className="comment-card__reply-button">Reply</button>
+                                            <button className="comment-card__reply-button" onClick={() => {toggleReplyForm(comment.id, reply.user.username); setDisplayReplyingTo(true);}}>Reply</button>
                                         </section>
 
                                         <p className="comment-card__content">

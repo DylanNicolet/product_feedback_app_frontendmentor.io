@@ -97,7 +97,7 @@
                 }
             }
 
-            .comment-card__content{
+            .comment-card__content {
                 font-size: 0.81rem;
                 font-weight: 400;
                 line-height: 1.19rem;
@@ -134,6 +134,18 @@
 
                     &::placeholder {
                         color: u.$color-placeholder;
+                    }
+                }
+
+                .replying-to{
+                    font-size: .81rem;
+                    font-weight: 400;
+                    line-height: 1.19rem;
+                    letter-spacing: 0rem;
+                    color: u.$color-text-quaternary;
+
+                    span {
+                        color: u.$color-primary;
                     }
                 }
 
