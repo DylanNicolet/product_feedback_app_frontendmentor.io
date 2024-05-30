@@ -178,8 +178,6 @@ app.post(`/add-comment-to-feedback/:feedbackId`, (req, res) => {
         }
     };
 
-    console.log(newComment);
-
     // Update the feedback document with the new comment
     db.collection('feedbacks')
         .updateOne(
@@ -197,4 +195,38 @@ app.post(`/add-comment-to-feedback/:feedbackId`, (req, res) => {
             console.error(err);
             res.status(500).json({ error: "Could not add comment to this Feedback" });
         });
+})
+
+// Add a new reply to a comment
+app.post(`/add-reply-to-comment/:feedbackId/:commentId`, (req, res) => {
+    const feedbackId = req.params.feedbackId;
+    const commentId = req.params.commentId;
+    const replyData = req.body.replyData;
+
+    if (!replyData || !replyData.content) {
+        return res.status(400).json({ error: "Invalid reply data" });
+    }
+
+    // Update the feedback document with the new reply to comment
+    db.collection('feedbacks')
+    .updateOne(
+        {
+            _id: new ObjectId(feedbackId),
+            'comments.id': new ObjectId(commentId)
+        },
+        {
+            $push: { 'comments.$.replies': replyData }
+        }
+    )
+    .then(result => {
+        if (result.modifiedCount > 0) {
+            res.status(200).json({ message: "Reply added successfully", commentId: commentId });
+        } else {
+            res.status(404).json({ error: "Feedback or comment not found" });
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({ error: "Could not add reply to the comment" });
+    });
 })

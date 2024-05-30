@@ -13,6 +13,7 @@ export default function() {
     const [replyFormId, setReplyFormId] = useState(null)
     const [comment, setComment] = useState('')
     const [lengthRemaining, setLengthRemaining] = useState(250)
+    const [replyToComment, setReplyToComment] = useState('')
 
     // Grab ID from URL
     const { feedbackId } = useParams()
@@ -87,6 +88,32 @@ export default function() {
         }
     } 
 
+    // Add a reply to a comment
+    function handleReplyToComment(commentId, replyingTo) {
+        if (replyToComment) {
+            axios.post(`http://localhost:5000/add-reply-to-comment/${feedbackId}/${commentId}`, {
+                // We send the data already as an object to be added to the comments array in database
+                replyData : {
+                    content: replyToComment,
+                    replyingTo: replyingTo,
+                    user: {
+                        image: currentUser.currentUserImage,
+                        name: currentUser.currentUserName,
+                        username: currentUser.currentUserUsername 
+                    }
+                }
+            })
+            .then(response => {
+                getDataOfCurrentFeedback()
+                setReplyToComment('')
+                setReplyFormId(null)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        }
+    }
+
     return(
         <main className="FeedbackPage">
             <section className="head">
@@ -128,13 +155,20 @@ export default function() {
 
                         <p className="comment-card__content">{comment.content}</p>
 
+                        {/* Reply to a comment */}
                         <section
                             className="form-reply-to-comment"
                             id={`form-reply-to-comment-${comment.id}`}
                             style={{ display: replyFormId === comment.id ? 'block' : 'none' }}
                         >
-                            <textarea placeholder="Type your reply here" maxLength="250" rows={4} />
-                            <button className="button-primary">Post Reply</button>
+                            <textarea 
+                                placeholder="Type your reply here" 
+                                maxLength="250" 
+                                rows={4} 
+                                value={replyToComment} 
+                                onChange={(e) => setReplyToComment(e.target.value)}
+                            />
+                            <button className="button-primary" onClick={() => handleReplyToComment(comment.id, comment.user.username)}>Post Reply</button>
                         </section>
 
                         {/* Display replies if they exist */}
