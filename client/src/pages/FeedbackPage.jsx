@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector } from "react-redux";
+import GoBackButton from "../components/GoBackButton";
 import FeedbackCard from "../components/FeedbackCard"
-import iconArrowLeft from "../assets/shared/icon-arrow-left.svg"
 
 export default function() {
     // States
@@ -123,10 +123,7 @@ export default function() {
     return(
         <main className="FeedbackPage">
             <section className="head">
-                <Link className="head__go-back" to={`..`}>
-                    <img src={iconArrowLeft} alt="" />
-                    Go Back
-                </Link>
+                <GoBackButton />
 
                 <Link className="head__to-edit" to={`/editFeedback/:${feedbackId}`}>
                     Edit Feedback

@@ -1,0 +1,12 @@
+@use "../utils" as u;
+
+.go-back-button {
+    font-size: 0.81rem;
+    font-weight: 700;
+    line-height: 1.19rem;
+    color: u.$color-text-quaternary;
+
+    img {
+        margin-right: 0.8rem;
+    }
+}

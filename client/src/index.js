@@ -6,6 +6,7 @@ import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import FeedbackPage from "./pages/FeedbackPage"
+import NewFeedback from "./pages/NewFeedback"
 
 const router = createBrowserRouter([
   {
@@ -16,10 +17,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Homepage />,
       },
-      // {
-      //   path: "/new-feedback",
-      //   element: <Category />
-      // },
+      {
+        path: "/new-feedback",
+        element: <NewFeedback />
+      },
       {
         path: "/feedback/:feedbackId",
         element: <FeedbackPage />

@@ -230,3 +230,18 @@ app.post(`/add-reply-to-comment/:feedbackId/:commentId`, (req, res) => {
         res.status(500).json({ error: "Could not add reply to the comment" });
     });
 })
+
+// Add a new Feedback
+app.post('/add-new-feedback', (req, res) => {
+    const newFeedback = req.body;
+
+    db.collection('feedbacks')
+        .insertOne(newFeedback)
+        .then(result => {
+            res.status(201).json(result.ops[0]);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: "Could not add the feedback" });
+        });
+});
