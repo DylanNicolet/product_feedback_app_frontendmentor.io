@@ -209,36 +209,41 @@ app.post(`/add-reply-to-comment/:feedbackId/:commentId`, (req, res) => {
 
     // Update the feedback document with the new reply to comment
     db.collection('feedbacks')
-    .updateOne(
-        {
-            _id: new ObjectId(feedbackId),
-            'comments.id': new ObjectId(commentId)
-        },
-        {
-            $push: { 'comments.$.replies': replyData }
-        }
-    )
-    .then(result => {
-        if (result.modifiedCount > 0) {
-            res.status(200).json({ message: "Reply added successfully", commentId: commentId });
-        } else {
-            res.status(404).json({ error: "Feedback or comment not found" });
-        }
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({ error: "Could not add reply to the comment" });
-    });
+        .updateOne(
+            {
+                _id: new ObjectId(feedbackId),
+                'comments.id': new ObjectId(commentId)
+            },
+            {
+                $push: { 'comments.$.replies': replyData }
+            }
+        )
+        .then(result => {
+            if (result.modifiedCount > 0) {
+                res.status(200).json({ message: "Reply added successfully", commentId: commentId });
+            } else {
+                res.status(404).json({ error: "Feedback or comment not found" });
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: "Could not add reply to the comment" });
+        });
 })
 
-// Add a new Feedback
+// Add a new Feedback to the database
 app.post('/add-new-feedback', (req, res) => {
     const newFeedback = req.body;
 
     db.collection('feedbacks')
         .insertOne(newFeedback)
         .then(result => {
-            res.status(201).json(result.ops[0]);
+            console.log("Insertion result:", result);
+            if (result.insertedId) {
+                res.status(201).json({ _id: result.insertedId, ...newFeedback });
+            } else {
+                throw new Error("Insertion failed, no insertedId returned");
+            }
         })
         .catch(err => {
             console.error(err);

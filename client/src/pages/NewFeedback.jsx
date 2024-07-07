@@ -1,5 +1,6 @@
-import React from "react";
-import GoBackButton from "../components/GoBackButton";
+import React from "react"
+import axios from 'axios'
+import GoBackButton from "../components/GoBackButton"
 
 export default function NewFeedback() {
     let [title, setTitle] = React.useState('')
@@ -36,7 +37,7 @@ export default function NewFeedback() {
         }
 
         if (title && description) {
-            let newFeedback = {
+            let newFeedbackObject = {
                 title: title,
                 category: category,
                 upvotes: 0,
@@ -45,9 +46,13 @@ export default function NewFeedback() {
                 comments: []
             }
 
-            // ################# continue form validation here
-    
-            console.log(newFeedback)
+            axios.post('http://localhost:5000/add-new-feedback', newFeedbackObject)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error adding the feedback!', error);
+            });
         }
     }
 
@@ -55,13 +60,13 @@ export default function NewFeedback() {
         <main className="NewFeedback">
             <GoBackButton />
 
-            <form className="NewFeedback-form" onSubmit={handleSubmit}>
-                <img src="" />
+            <form className="NewFeedback-form container-primary" onSubmit={handleSubmit}>
+                <div className="plus-icon">+</div>
 
                 <h1>Create New Feedback</h1>
 
                 <label htmlFor="title">Feedback Title</label>
-                <p>Add a short, descriptive headline</p>
+                <p className="sub-label">Add a short, descriptive headline</p>
                 <input 
                     id="title" 
                     className={errorTitle ? "input-error" : undefined} 
@@ -73,7 +78,7 @@ export default function NewFeedback() {
                 {errorTitle && <p className="text-error">Can't be empty</p>}
 
                 <label htmlFor="category">Category</label>
-                <p>Choose a category for your feedback</p>
+                <p className="sub-label">Choose a category for your feedback</p>
                 <select id="category" name="category" onChange={e => setCategory(e.target.value)}>
                     <option value="Feature">Feature</option>
                     <option value="Enhancement">Enhancement</option>
@@ -83,18 +88,21 @@ export default function NewFeedback() {
                 </select>
 
                 <label htmlFor="description">Feedback Description</label>
-                <p>Include a specific comments on what should be improved, added, etc.</p>
+                <p className="sub-label">Include a specific comments on what should be improved, added, etc.</p>
                 <textarea 
                     id="description" 
                     className={errorDescription ? "input-error" : undefined} 
                     type="textArea" 
                     name="description" 
+                    rows="5"
                     onChange={e => setDescription(e.target.value)} 
                 />
                 {errorDescription && <p className="text-error">Can't be empty</p>}
 
-                <button type="submit" >Add Feedback</button>
-                <button>Cancel</button>
+                <section className="submit-btn-container">
+                    <button className="button-primary submit" type="submit" >Add Feedback</button>
+                    <button className="button-secondary">Cancel</button>
+                </section>
             </form>
         </main>
     )
