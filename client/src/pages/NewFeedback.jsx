@@ -8,6 +8,8 @@ export default function NewFeedback() {
     let [description, setDescription] = React.useState('')
     let [errorTitle, setErrorTitle] = React.useState(false)
     let [errorDescription, setErrorDescription] = React.useState(false)
+    let [responceReceived, setResponceReceived] = React.useState(false)
+    let [responce, setResponce] = React.useState("New Feedback submited successfully.")
 
     // Validate user input
     function validateInput() {
@@ -48,10 +50,11 @@ export default function NewFeedback() {
 
             axios.post('http://localhost:5000/add-new-feedback', newFeedbackObject)
             .then(response => {
-                console.log(response.data);
+                setResponceReceived(true)
             })
             .catch(error => {
-                console.error('There was an error adding the feedback!', error);
+                console.error('There was an error adding the feedback!', error)
+                setResponce("There was an error submitting your feedback.")
             });
         }
     }
@@ -75,7 +78,9 @@ export default function NewFeedback() {
                     value={title} 
                     onChange={e => setTitle(e.target.value)}
                 />
-                {errorTitle && <p className="text-error">Can't be empty</p>}
+                <section className="error-section">
+                    {errorTitle && <p className="text-error">Can't be empty</p>}
+                </section>
 
                 <label htmlFor="category">Category</label>
                 <p className="sub-label">Choose a category for your feedback</p>
@@ -97,12 +102,18 @@ export default function NewFeedback() {
                     rows="5"
                     onChange={e => setDescription(e.target.value)} 
                 />
-                {errorDescription && <p className="text-error">Can't be empty</p>}
-
-                <section className="submit-btn-container">
-                    <button className="button-primary submit" type="submit" >Add Feedback</button>
-                    <button className="button-secondary">Cancel</button>
+                <section className="error-section">
+                    {errorDescription && <p className="text-error">Can't be empty</p>}
                 </section>
+
+                {responceReceived ? 
+                    <p className="responce-message">{responce}</p> 
+                :
+                    <section className="submit-btn-container">
+                        <button className="button-primary submit" type="submit" >Add Feedback</button>
+                        <button className="button-secondary">Cancel</button>
+                    </section>
+                }
             </form>
         </main>
     )
