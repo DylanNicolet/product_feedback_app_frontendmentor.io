@@ -18,8 +18,7 @@ export default function Homepage() {
     // Filter change
     useEffect(() => {
         if (!isInitialLoad) {
-            const lowercaseFilter = activeFilter.toLowerCase();
-            axios.get(`http://localhost:5000/get-filtered-feedbacks/${lowercaseFilter}`)
+            axios.get(`http://localhost:5000/get-filtered-feedbacks/${activeFilter}`)
                 .then(response => {
                     setBackendData(response.data);
                 })

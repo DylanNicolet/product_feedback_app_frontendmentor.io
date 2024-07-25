@@ -27,7 +27,7 @@ app.get('/get-filtered-feedbacks/:filter', (req, res) => {
 
     let query = {}; // Default query is empty, meaning no filtering
 
-    if (filterValue !== "all") {
+    if (filterValue !== "All") {
         query = { category: filterValue }; // If filterValue is not "all", apply the filter
     }
 
