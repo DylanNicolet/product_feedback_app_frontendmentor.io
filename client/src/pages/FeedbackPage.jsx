@@ -125,7 +125,7 @@ export default function() {
             <section className="head">
                 <GoBackButton />
 
-                <Link className="head__to-edit" to={`/editFeedback/:${feedbackId}`}>
+                <Link className="head__to-edit" to={`/editFeedback/${feedbackId}`}>
                     Edit Feedback
                 </Link>
             </section>

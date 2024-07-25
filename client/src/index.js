@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import FeedbackPage from "./pages/FeedbackPage"
 import NewFeedback from "./pages/NewFeedback"
+import EditFeedback from "./pages/EditFeedback"
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,10 @@ const router = createBrowserRouter([
         path: "/feedback/:feedbackId",
         element: <FeedbackPage />
       },
-      // {
-      //   path: "/checkout",
-      //   element: <Checkout />
-      // }
+      {
+        path: "/editFeedback/:feedbackId",
+        element: <EditFeedback />
+      }
     ],
   }
 ])
